@@ -105,8 +105,8 @@ while x < 10:
   total = 0
   counter = 1
   while counter <= 1000:
-    if i % 8 == 0:
-      total += i
+    if counter % 8 == 0:
+      total += counter
     
     counter += 1
   
