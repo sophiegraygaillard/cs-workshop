@@ -14,9 +14,9 @@ Create an account on [Project Euler](https://projecteuler.net/archives]) (don't 
 ## Assigned Project Euler problems:
 - Least difficult
   - Problem 1: Multiples of 3 or 5
-  - Problem 5: Smallest multiple
 
 - More difficult
+  - Problem 5: Smallest multiple
   - Problem 6: Sum square difference
   - Problem 2: Even Fibonacci numbers
 
