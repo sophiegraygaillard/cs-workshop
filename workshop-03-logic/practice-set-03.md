@@ -1,6 +1,6 @@
 # Practice question set #3
 
-We'll be using questions from [Project Euler](https://projecteuler.net/archives]) for this pracice set.
+We'll be using questions from [Project Euler](https://projecteuler.net/archives) for this pracice set.
 
 ## Before you begin!
 > **NOTE: Make sure you have read the other file (lists-in-python.md) in this folder before proceeding with these questions!**
