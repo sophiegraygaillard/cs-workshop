@@ -16,9 +16,9 @@ Create an account on [Project Euler](https://projecteuler.net/archives]) (don't 
   - Problem 1: Multiples of 3 or 5
 
 - More difficult
-  - Problem 5: Smallest multiple
   - Problem 6: Sum square difference
   - Problem 2: Even Fibonacci numbers
 
 - Most difficult
   - Problem 25: 1000-digit Fibonacci number
+  - Problem 5: Smallest multiple
