@@ -2,9 +2,6 @@
 
 We'll be using questions from [Project Euler](https://projecteuler.net/archives) for this pracice set.
 
-## Before you begin!
-> **NOTE: Make sure you have read the other file (lists-in-python.md) in this folder before proceeding with these questions!**
-
 
 ## Let's get started with Project Euler
 Create an account on [Project Euler](https://projecteuler.net/archives]) (don't forget your password since there's no email recovery). If you click on a problem, you'll be taken to that particular question and you can input the answer to see if you're right. The website will keep track of your progress.
