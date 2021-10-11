@@ -16,9 +16,46 @@ For next week, we'll be making an program that will analyze some data. This prob
   5. Print out your list in reverse order, using one line of code.
   6. Find the sum of your list using a `for` loop.
 
+  <details>
+  <summary>Question 1 answer</summary>
+  
+  ```python
+  # creating a list of my favorite numbers
+  myFavoriteNumbers = [1, 10, 100, 1000, 10000]
+
+  # add a number to end of list
+  myFavoriteNumbers.append(300)
+
+  # print out third element. remember that python is a 0-index based language!
+  print(myFavoriteNumbers[2])
+
+  # print out 1st, 2nd, and 3rd elements with one line
+  print(myFavoriteNumbers[0:3])
+
+  # print out list in reverse order, using one line of code
+  print(myFavoriteNumbers[::-1])
+
+  # find sum using a for loop
+  numSum = 0
+  for x in myFavoriteNumbers:
+    numSum += x
+  ```
+</details>
+
 ## Practice question 2 - dict practice
   1. Create a dictionary called `myFavoritePipettes`. You need two keys `20ulPipette` and `1000ulPipette`. For each key, set a value consisting of the reason why you like that pipette.
   2. In this dictionary, set a new key called `200ulPipette` and give it a value of `"much versatile, such wow"`.
+
+<details>
+  <summary>Question 2 answer</summary>
+  
+  ```python
+  myFavoritePipettes = {"20ulPipette": "versatile",
+  "1000ulPipette": "robust"}
+
+  myFavoritePipettes["200ulPipette"] = "much versatile, such wow"
+  ```
+</details>
 
 ## Practice question 3 - preparing for next week
 We will be importing some dummy flow data for practice. The values don't really matter for this code as I just chose random numbers.
@@ -54,3 +91,27 @@ flowData = [
 # type your code below:
 
 ```
+<details>
+  <summary>Question 3 answer</summary>
+  
+  ```python
+  # do not edit flowData: this is dummy flow data
+  flowData = [
+    ["sampleID", "CD3", "CD4", "CD8"],
+    ["stim", 58.3, 24.3, 20.5],
+    ["noStim", 32.1, 34.2, 50.3],
+    ["PMAstim", 34.3, 15.3, 31.3]
+  ]
+
+  # type your code below:
+  flowDataDict = {}
+  for i in range(0, len(flowData[0])):
+    colName = flowData[0][i]
+    
+    values = []
+    for j in range(1, len(flowData)):
+      values.append(flowData[j][i])
+    
+    flowDataDict[colName] = values
+  ```
+</details>
