@@ -108,7 +108,7 @@ for k in myTemporaryDict:
   print(myTemporaryDict[k])
 
 # this will print out the following
-# NOTE THAT AGAIN, one can assume the order of keys is the same as our initial declaration
+# NOTE THAT AGAIN, one can NOT assume the order of keys is the same as our initial declaration
 
 # "yes"
 # "no"
