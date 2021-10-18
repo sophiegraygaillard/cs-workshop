@@ -8,15 +8,15 @@
 # but is not loaded hence why we need to load it ourselves)
 import csv
 
-
 # the below code reads in the csv file and appends each row to myData
 # if you print myData, you'll see that it is a list of lists (where each 
 # sublist is a row in the original data)
 myData = []
-with open("dummyData.csv", "r", encoding = "utf-8-sig") as csvfile:
+with open("dummyData.csv", "r") as csvfile:
   csvReader = csv.reader(csvfile, delimiter = ",")
   for row in csvReader:
     myData.append(row)
+    
 
 # Here I've included a custom function that you might find useful.
 # This function takes in a value and checks if it can be converted into
