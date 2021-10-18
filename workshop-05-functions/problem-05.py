@@ -53,10 +53,12 @@ print(myDataDict)
 ####################
 # Write a function called findMean that takes in a list of values and returns the mean.
 
+# HINT: If you're using Python 2, you will need to watch out that you're not doing integer division.
+
 # // Write your code here //
 
 # Test if your function works! Uncomment out the below lines to test.
-# print(findMean([3, 4, 5])) # this should return 4
+# print(findMean([3, 4, 6])) # this should return 4.3 repeating.
 # print(findMean([1])) # this should return 1
 
 
@@ -67,14 +69,15 @@ print(myDataDict)
 # Return the fold change of the mean of listB over mean of listA (i.e. listB's mean / listA's mean)
 
 # HINT: remember that you wrote a function above that's called findMean. Use it!
+# HINT: If you're using Python 2, you will need to watch out that you're not doing integer division.
 
 # // Write your code here //
 
 
 # Test if your function works! Uncomment out the below lines to test.
-# print(findRange([3, 4, 5], [3, 4, 5])) # this should return 1 since 4 / 4 = 1
-# print(findRange([5], [1])) # this should return 0.2 since 1 / 5 = 0.2
-# print(findRange([1], [5])) # this should return 5 since 5 / 1 = 5
+# print(findFoldChange([3, 4, 5], [3, 4, 5])) # this should return 1 since 4 / 4 = 1
+# print(findFoldChange([5], [1])) # this should return 0.2 since 1 / 5 = 0.2
+# print(findFoldChange([1], [5])) # this should return 5 since 5 / 1 = 5
 
 
 ####################
