@@ -17,6 +17,7 @@ with open("dummyData.csv", "r") as csvfile:
   for row in csvReader:
     myData.append(row)
     
+print(myData)
 
 # Here I've included a custom function that you might find useful.
 # This function takes in a value and checks if it can be converted into
