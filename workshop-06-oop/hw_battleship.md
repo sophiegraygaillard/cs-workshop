@@ -12,8 +12,8 @@ Each player has two boards:
 Game progression:
 1. Player 1 places their armada
 2. Player 2 places their armada
-3. Player 1 begins by guessing a coordinate location. If the corresponding location on Player 2's board contains a ship, Player 2 will report that there was a confirmed missile hit. Otherwise, Player 2 will report that the shot was a miss. If a hit is confirmed and an entire ship has sunk, the target Player will also need to report that the ship has sunk.
-4. Player 2 then fires a missile and Player 1 will report whether it was a hit or miss.
+3. Player 1 begins by guessing a coordinate location. If the corresponding location on Player 2's board contains a ship, Player 2 will report that there was a confirmed missile hit. Otherwise, Player 2 will report that the shot was a miss. If a hit is confirmed and an entire ship has sunk, the target Player will also need to report that the ship has sunk. Note that your code will need to do all this automatically (i.e your program will report the hit/miss/ship destroyed as opposed to making the user report it).
+4. Player 2 then fires a missile and Player 1 will report whether it was a hit or miss. Similar to step 3 with the requirements.
 5. Repeat Steps 3 and 4 until any player has lost all their ships, thus crowning the survivor as the winner.
 
 ## The requirements
