@@ -12,12 +12,10 @@ import csv
 # if you print myData, you'll see that it is a list of lists (where each 
 # sublist is a row in the original data)
 myData = []
-with open("dummyData.csv", "r") as csvfile:
+with open("dummyData.csv", "r", encoding = "utf-8-sig") as csvfile:
   csvReader = csv.reader(csvfile, delimiter = ",")
   for row in csvReader:
     myData.append(row)
-    
-print(myData)
 
 # Here I've included a custom function that you might find useful.
 # This function takes in a value and checks if it can be converted into
@@ -30,7 +28,6 @@ def isFloat(value):
   except ValueError:
     return(False)
 
-
 ####################
 # TODO - Question #1
 ####################
@@ -42,8 +39,21 @@ def isFloat(value):
 # Hint: if you run into a TypeError at some point...print out myData and see what values
 # are stored there.
 
-# // Write your code here //
+# // Write your code here
+
 myDataDict = {}
+for i in range(0, len(myData[0])):
+  colName = myData[0][i]
+  
+  values = []
+  for j in range(1, len(myData)):
+    val = myData[j][i]
+    if isFloat(val):
+      values.append(float(val))
+    else:
+      values.append(val)
+  
+  myDataDict[colName] = values
 
 # print out your dict to make sure it's right!
 print(myDataDict)
@@ -56,9 +66,12 @@ print(myDataDict)
 # HINT: If you're using Python 2, you will need to watch out that you're not doing integer division.
 
 # // Write your code here //
+def findMean(aList):
+  sumOfList = sum(aList)
+  return(sumOfList * 1.0 / len(aList))
 
 # Test if your function works! Uncomment out the below lines to test.
-# print(findMean([3, 4, 6])) # this should return 4.3 repeating.
+# print(findMean([3, 4, 5])) # this should return 4
 # print(findMean([1])) # this should return 1
 
 
@@ -72,6 +85,11 @@ print(myDataDict)
 # HINT: If you're using Python 2, you will need to watch out that you're not doing integer division.
 
 # // Write your code here //
+def findFoldChange(listA, listB):
+  listAMean = findMean(listA)
+  listBMean = findMean(listB)
+
+  return(listBMean / listAMean)
 
 
 # Test if your function works! Uncomment out the below lines to test.
@@ -99,3 +117,24 @@ print(myDataDict)
 
 
 # // Write your code here //
+def findFoldChangeForAb(ab):
+  stimValues = []
+  unstimValues = []
+
+  for i in range(0, len(myDataDict["treatment"])):
+    treatment = myDataDict["treatment"][i]
+
+    if treatment == "stim":
+      stimValues.append(myDataDict[abKey][i])
+    else:
+      unstimValues.append(myDataDict[abKey][i])
+
+  fc = findFoldChange(unstimValues, stimValues)
+
+  return(fc)
+
+for abIndex in range(2, len(myData[0])):
+  abKey = myData[0][abIndex]
+  
+  fc = findFoldChangeForAb(abKey)
+  print("Fold change between stim/unstim for " + abKey + " is " + str(fc))
