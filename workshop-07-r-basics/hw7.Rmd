@@ -1,0 +1,61 @@
+---
+title: "workshop-07-hw"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Welcome to Workshop-07-hw
+Your homework today will be to read in two CSV files and manipulate the data frame to get the data in different forms and to do some preliminary statistical analysis on this file. You DO NOT need to load any additional libraries for this homework. Any usage of `library(pkg_name)` is disallowed for this assignment - i.e. no tidyverse libraries.
+
+## Step 1
+Create a chunk here and do the following:
+
+1. Read in the `forHwFile1.csv` and set it to a variable called `dfFile1`.
+2. Read in the `forHwFile2.csv` and set it to a variable called `dfFile2`.
+3. Print out these two variables.
+4. Print out their dimensions (i.e. the number of rows and the number of columns).
+5. Write a logical statement to check if the `samples` column in `dfFile1` matches the `samples` column in `dfFile2`. Your statement should return a single logical value, not a vector of logical values.  
+
+## Step 2
+What can you tell about their dimensions and what's in the dataset? It looks like someone accidentally split the dataset into two separate files since the `samples` column are the same. Let's combine them to make one giant data frame.
+
+Create a new chunk. Create a new variable called `dfCompiled` that combines the two data frames from Step 1. Because the `samples` column is the same between the two original data frames, we don't want to keep a duplicate column. Your final `dfCompiled` should not contain duplicate `samples` columns.
+
+Print out `dfCompiled`.
+
+## Step 3
+Perfect! We've got a compiled data frame. Let's do some preliminary analysis.
+
+1. Create a named vector where each name corresponds to the column name and the value corresponds to the mean of the column. Because `samples` column contains type character, this column should not be included in this vector.
+2. Create another named vector, similar to done in the previous step, where the value corresponds to the standard deviation of the column. Use your vector from the previous step to assist with this.
+3. Try out the `summary()` function on a random column and print out the result. Describe what you see in Markdown.
+4. Try out the `summary()` function on `dfCompiled` and print out the result. Describe what you see in Markdown.
+
+Put your description for 3 and 4 below:
+
+
+## Step 4
+Let's practice some indexing.
+
+1. Print out the even numbered rows in the data frame.
+2. Print out the odd numbered columns in the data frame.
+3. Print out the even numbered rows AND odd numbered columns in the data frame.
+4. Print out the subset (i.e. all columns and only the rows matching the condition) of the data frame where the `CD3` column is >= 25.
+5. Print out the subset (i.e. all columns and only the rows matching the condition) of the data frame where the `CD4` column is < 15 and `CD8` column is > 30.
+
+6. Add a new column to `dfCompiled` called `goingWild` with a vector of numbers of your choice. If you don't want to come up with numbers, you can look up the `runif` function that can generate a vector of random numbers.
+
+## Step 5
+Let's practice making some functions now.
+
+1. Write a function called `filterDataFrame` that takes three arguments: `df`, `colname`, and `value`. This function with take a data frame (`df`) and filter out the rows where the `colname` is not equal to `value`. You should check and stop the function early if `colname` is not actually a column name in `df`.
+
+You should try out this function on different column names and values to ensure that it works. 
+
+## Step 6
+Let's practice our for loops, sapply, and lapply.
+1. Using a for loop, create a new column to `dfCompiled` that adds together `CD4` and `CD8` for every even numbered row.
+2. Using sapply, create a new column to `dfCompiled` that adds together `CD4` and `CD8` for every even numbered row.
