@@ -17,19 +17,19 @@ Create a chunk here and do the following:
 2. Read in the `forHwFile2.csv` and set it to a variable called `dfFile2`.
 3. Print out these two variables.
 4. Print out their dimensions (i.e. the number of rows and the number of columns).
-5. Write a logical statement to check if the `samples` column in `dfFile1` matches the `samples` column in `dfFile2`. Your statement should return a single logical value, not a vector of logical values.  
+5. Write a logical statement to check if the `sample` column in `dfFile1` matches the `sample` column in `dfFile2`. Your statement should return a single logical value, not a vector of logical values.  
 
 ## Step 2
-What can you tell about their dimensions and what's in the dataset? It looks like someone accidentally split the dataset into two separate files since the `samples` column are the same. Let's combine them to make one giant data frame.
+What can you tell about their dimensions and what's in the dataset? It looks like someone accidentally split the dataset into two separate files since the `sample` column are the same. Let's combine them to make one giant data frame.
 
-Create a new chunk. Create a new variable called `dfCompiled` that combines the two data frames from Step 1. Because the `samples` column is the same between the two original data frames, we don't want to keep a duplicate column. Your final `dfCompiled` should not contain duplicate `samples` columns.
+Create a new chunk. Create a new variable called `dfCompiled` that combines the two data frames from Step 1. Because the `sample` column is the same between the two original data frames, we don't want to keep a duplicate column. Your final `dfCompiled` should not contain duplicate `sample` columns.
 
 Print out `dfCompiled`.
 
 ## Step 3
 Perfect! We've got a compiled data frame. Let's do some preliminary analysis.
 
-1. Create a named vector where each name corresponds to the column name and the value corresponds to the mean of the column. Because `samples` column contains type character, this column should not be included in this vector.
+1. Create a named vector where each name corresponds to the column name and the value corresponds to the mean of the column. Because `sample` column contains type character, this column should not be included in this vector.
 2. Create another named vector, similar to done in the previous step, where the value corresponds to the standard deviation of the column. Use your vector from the previous step to assist with this.
 3. Try out the `summary()` function on a random column and print out the result. Describe what you see in Markdown.
 4. Try out the `summary()` function on `dfCompiled` and print out the result. Describe what you see in Markdown.
