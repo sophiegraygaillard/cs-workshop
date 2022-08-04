@@ -10,3 +10,5 @@ Computer science workshop for the Betts Lab!
 | 2021-10-08 | 04 | lists and dictionaries |
 | 2021-10-13 | 05 | functions |
 | 2021-11-12 | 06 | object-oriented programming |
+| 2022-03-09 | 07 | intro to R basics |
+| 2022-08-04 | 08 | git, github, tidy evaluation, tidyverse (dplyr + ggplot2) |
