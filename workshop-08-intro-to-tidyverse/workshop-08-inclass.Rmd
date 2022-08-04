@@ -1,0 +1,25 @@
+---
+title: "workshop-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## welcome to workshop-08
+Today we will be covering the following topics:
+- Github and Git
+- Intro to tidyverse
+  - tidy evaluation and metaprogramming
+  - data frames and data masking, and why I didn't teach tidyverse first when we learned R
+  - dplyr
+  - brief discussion about other tidyverse libraries that might be of use (stringr, tidyr, plyr)
+  - ggplot2 (if time permits)
+  
+## the data we will be working with
+```{r}
+# courtesy of @gregory-golden;
+# noised and randomised data from flow experiments; hw8_data.csv
+```
+
