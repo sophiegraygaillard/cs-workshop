@@ -19,12 +19,32 @@ Create a chunk here and do the following:
 4. Print out their dimensions (i.e. the number of rows and the number of columns).
 5. Write a logical statement to check if the `sample` column in `dfFile1` matches the `sample` column in `dfFile2`. Your statement should return a single logical value, not a vector of logical values.  
 
+```{r}
+dfFile1 <- read.csv("forHwFile1.csv")
+dfFile2 <- read.csv("forHwFile2.csv")
+
+dfFile1
+dfFile2
+
+dim(dfFile1)
+dim(dfFile2)
+
+dfFile1$sample == dfFile2$sample
+```
+
 ## Step 2
 What can you tell about their dimensions and what's in the dataset? It looks like someone accidentally split the dataset into two separate files since the `sample` column are the same. Let's combine them to make one giant data frame.
 
 Create a new chunk. Create a new variable called `dfCompiled` that combines the two data frames from Step 1. Because the `sample` column is the same between the two original data frames, we don't want to keep a duplicate column. Your final `dfCompiled` should not contain duplicate `sample` columns.
 
 Print out `dfCompiled`.
+
+```{r}
+dfCompiled <- cbind(dfFile1, dfFile2[, 2:ncol(dfFile2)])
+
+dfCompiled
+```
+
 
 ## Step 3
 Perfect! We've got a compiled data frame. Let's do some preliminary analysis.
@@ -35,6 +55,23 @@ Perfect! We've got a compiled data frame. Let's do some preliminary analysis.
 4. Try out the `summary()` function on `dfCompiled` and print out the result. Describe what you see in Markdown.
 
 Put your description for 3 and 4 below:
+
+```{r}
+meanV <- colMeans(dfCompiled[, 2:ncol(dfCompiled)])
+sdV <- c()
+
+for (j in c(2:ncol(dfCompiled))) {
+  col <- dfCompiled[, j]
+  col <- sum(col - meanV[colnames(dfCompiled)[j]]) ** 2
+  colSd <- col / length(col)
+  sdV <- append(sdV, colSd)
+}
+
+names(sdV) <- names(meanV)
+
+summary(dfCompiled$CD3)
+summary(dfCompiled)
+```
 
 
 ## Step 4
@@ -48,14 +85,67 @@ Let's practice some indexing.
 
 6. Add a new column to `dfCompiled` called `goingWild` with a vector of numbers of your choice. If you don't want to come up with numbers, you can look up the `runif` function that can generate a vector of random numbers.
 
+```{r}
+# 1
+dfCompiled[seq(2,nrow(dfCompiled), 2), ]
+
+# 2
+dfCompiled[, seq(1,ncol(dfCompiled), 2)]
+
+# 3 
+dfCompiled[seq(2, nrow(dfCompiled), 2), seq(1, ncol(dfCompiled), 2)]
+
+# 4
+dfCompiled[dfCompiled$CD3 >= 25, ]
+
+#5 
+dfCompiled[dfCompiled$CD4 < 15 & dfCompiled$CD8 > 30, ]
+
+#6
+dfCompiled$goingWild <- runif(nrow(dfCompiled), 3, 5)
+```
+
+
 ## Step 5
 Let's practice making some functions now.
 
-1. Write a function called `filterDataFrame` that takes three arguments: `df`, `colname`, and `value`. This function with take a data frame (`df`) and filter out the rows where the `colname` is not equal to `value`. You should check and stop the function early if `colname` is not actually a column name in `df`.
+1. Write a function called `filterDataFrame` that takes three arguments: `df`, `colname`, and `value`. This function will take a data frame (`df`) and filter out the rows where the `colname` is not equal to `value`. You should check and stop the function early if `colname` is not actually a column name in `df`.
 
 You should try out this function on different column names and values to ensure that it works. 
 
+```{r}
+filterDataFrame <- function(df, colname, value) {
+  stopifnot(colname %in% colnames(df))
+  
+  return(df[df[, colname] == value, ])
+}
+
+filterDataFrame(dfCompiled, "goingWild", dfCompiled$goingWild[1])
+filterDataFrame(dfCompiled, "goingWild", 0)
+```
+
+
 ## Step 6
 Let's practice our for loops, sapply, and lapply.
-1. Using a for loop, create a new column to `dfCompiled` that adds together `CD4` and `CD8` for every even numbered row.
-2. Using sapply, create a new column to `dfCompiled` that adds together `CD4` and `CD8` for every even numbered row.
+1. Using a for loop, create a new column to `dfCompiled` that adds together `CD4` and `CD8` for every even numbered row. For odd number rows, give it a value of -1.
+2. Using sapply, create a new column to `dfCompiled` that adds together `CD4` and `CD8` for every even numbered row. For odd number rows, give it a value of -1.
+```{r}
+# 1
+tmpCol <- rep(-1, nrow(dfCompiled))
+for (i in seq(1, nrow(dfCompiled), 2)) {
+  tmpCol[i] <- dfCompiled[i, "CD4"] + dfCompiled[i, "CD8"]
+}
+dfCompiled$newColumn1 <- tmpCol
+
+
+# 2
+dfCompiled$newColumn2 <- sapply(c(1:nrow(dfCompiled)), function(i) {
+  if (i %% 2) {
+    return(dfCompiled[i, "CD4"] + dfCompiled[i, "CD8"])
+  } else {
+    return(-1)
+  }
+})
+```
+
+
