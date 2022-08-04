@@ -16,6 +16,12 @@ Today we will be covering the following topics:
   - dplyr
   - brief discussion about other tidyverse libraries that might be of use (stringr, tidyr, plyr)
   - ggplot2 (if time permits)
+
+## let's load the libraries  
+```{r}
+
+```
+
   
 ## the data we will be working with
 ```{r}
