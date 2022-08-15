@@ -19,7 +19,7 @@ Today we will be covering the following topics:
 
 ## let's load the libraries  
 ```{r}
-
+library(dplyr)
 ```
 
   
@@ -27,5 +27,36 @@ Today we will be covering the following topics:
 ```{r}
 # courtesy of @gregory-golden;
 # noised and randomised data from flow experiments; hw8_data.csv
+df <- read.csv("hw8_data.csv", check.names = FALSE)
+
+head(df)
+colnames(df)
+```
+
+```{r}
+smallDf <- select(df, donor, Sex, `Disease Status`)
+
+filter(smallDf, Sex == "F")
+
+mutate(smallDf, donorExpanded = paste0("SCUBA_", donor))
+
+mutate(smallDf, Sex = ifelse(Sex == "M", "Male", Sex))
+
+arrange(smallDf, desc(donor))
+```
+
+```{r}
+jakeDf <- smallDf %>%
+  filter(Sex == "F") %>%
+  mutate(jakeWrath = 42) %>%
+  select(-jakeWrath) %>%
+  arrange(desc(donor))
+
+```
+
+```{r}
+df %>%
+  group_by(`Disease Status`, Tissue) %>%
+  summarize(CD45posAvg = mean(`CD45+`))
 ```
 
