@@ -1,0 +1,32 @@
+---
+title: "workshop-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## welcome to workshop-09
+Today we will be continue to work on the following topics:
+- Github and Git
+- Intro to tidyverse
+  - dplyr
+  - tidyr
+  - ggplot2
+
+## let's load the libraries  
+```{r}
+library(dplyr)
+```
+
+  
+## the data we will be working with
+```{r}
+# courtesy of @gregory-golden;
+# noised and randomised data from flow experiments; hw8_data.csv
+df <- read.csv("../workshop-08-intro-to-tidyverse/hw8_data.csv", check.names = FALSE)
+
+head(df)
+colnames(df)
+```
