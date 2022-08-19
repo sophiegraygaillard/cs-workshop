@@ -1,0 +1,62 @@
+---
+title: "hw9"
+author: "vinny"
+date: "8/18/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Instructions
+You are a data analyst for Ride Indego and they wanted to better understand their customer's riding habits to better design their service, allocate resources, and decide on which stations may need to be expanded. You are tasked with creating a comprehensive report to present to company executives.
+
+Your manager has provided you with this data file from the server (https://www.rideindego.com/about/data/) which is the 2022 Q2 (April - June) dataset. This file (`indego-trips-2022-q2.csv`) is located in the workshop-09 directory. Here's a head of the csv file:
+
+
+```{r, message = FALSE}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+
+```{r}
+df <- read.csv("indego-trips-2022-q2.csv")
+head(df) %>%
+  knitr::kable() %>%
+  kableExtra::kable_minimal("hover") %>%
+  kableExtra::scroll_box(width = "100%")
+```
+
+There are 257350 rows (i.e. trips) and 15 columns (metadata).
+
+As detailed from their website (taken verbatim), the columns of this file are as such:
+
+
+  - trip_id: Locally unique integer that identifies the trip
+  - duration: Length of trip in minutes
+  - start_time: The date/time when the trip began, presented in ISO 8601 format in local time
+  - end_time: The date/time when the trip ended, presented in ISO 8601 format in local time
+  - start_station: The station ID where the trip originated (for station name and more information on each station see the Station Table)
+  - start_lat: The latitude of the station where the trip originated
+  - start_lon: The longitude of the station where the trip originated
+  - end_station: The station ID where the trip terminated (for station name and more information on each station see the Station Table)
+  - end_lat: The latitude of the station where the trip terminated
+  - end_lon: The longitude of the station where the trip terminated
+  - bike_id:  Locally unique integer that identifies the bike
+  - plan_duration: The number of days that the plan the passholder is using entitles them to ride; 0 is used for a single ride plan (Walk-up)
+  - trip_route_category: “Round Trip” for trips starting and ending at the same station or “One Way” for all other trips
+  - passholder_type: The name of the passholder’s plan
+  - bike_type: The kind of bike used on the trip, including standard pedal-powered bikes or electric assist bikes
+  
+
+You have freedom to choose your own theme and plot unless explicity detailed in the question. Remember that your plots should be high quality, informative, and meaningful. Questions and graphs that are of interest:
+
+  1. Display a plot of trip distance by duration. Describe what you see and if there are any interesting observations. Note that trip distance is calculated by converting latitude and longitude to radians. For instance, latitude (or longitude) in radians is `lat = latitude / (180/π)`. Longitude in radians wil be referred to as `long`. If `lat1` and `long1` (all in radians) represent the starting latitude and longitude respectively, while `lat2` and `long2` (all in radians) represent the ending latitude and longitude respectively, then formula is `distance = 3963 * arccos((sin(lat1) * sin(lat2)) + cos(lat1) * cos(lat2) * cos(long2 – long1))`. The distance is in miles.
+  2. What is the average speed (distance / duration) in miles per hour overall for a trip?
+  3. If you bin starting time (i.e. 12am (inclusive) to 10am (exclusive) is morning, 10am (inclusive) to 6pm (exclusive) is midday, and 6pm (inclusive) to 12am (exclusive) is evening), are there any trends to average speed, duration, distance, and passholder_type? Display your findings in graph form (i.e. one or multiple plots).
+  4. Display a graph of the twenty most popular starting stations and the number of trips that originate there when grouped by starting time bin (see Question 3 for how to bin starting time)? Do the same for the twenty most popular ending stations.
+  5. Display a graph showing the popularity of each bike (in terms of number of trips) and the total number of unique stations where they have stayed. Annotate the top 5 most popular bikes by their bike ID. Remember to take into consideration if the starting and ending station are different, especially if a bike has been used once only.
+  6. Explore the data and find something interesting (that has not been explored above) to explain to me in a plot (can include multiple subplots if needed) + a 3 sentence summary of your findings.
