@@ -1,0 +1,144 @@
+
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Welcome to Workshop-07-hw
+Your homework today will be to read in two CSV files and manipulate the data frame to get the data in different forms and to do some preliminary statistical analysis on this file. You DO NOT need to load any additional libraries for this homework. Any usage of `library(pkg_name)` is disallowed for this assignment - i.e. no tidyverse libraries.
+
+## Step 1
+Create a chunk here and do the following:
+
+1. Read in the `forHwFile1.csv` and set it to a variable called `dfFile1`.
+2. Read in the `forHwFile2.csv` and set it to a variable called `dfFile2`.
+3. Print out these two variables.
+4. Print out their dimensions (i.e. the number of rows and the number of columns).
+5. Write a logical statement to check if the `sample` column in `dfFile1` matches the `sample` column in `dfFile2`. Your statement should return a single logical value, not a vector of logical values.  
+```{r step 1}
+setwd("~/Desktop/2023_Fall/Betts_lab_rotation/cs_workshop")
+
+dfFile1 <- read.csv("forHwFile1.csv")
+dfFile2 <- read.csv("forHwFile2.csv")
+
+dfFile1
+dfFile2
+
+dim(dfFile1)
+dim(dfFile2)
+
+all(dfFile1$sample == dfFile2$sample)
+```
+## Step 2
+What can you tell about their dimensions and what's in the dataset? It looks like someone accidentally split the dataset into two separate files since the `sample` column are the same. Let's combine them to make one giant data frame.
+
+Create a new chunk. Create a new variable called `dfCompiled` that combines the two data frames from Step 1. Because the `sample` column is the same between the two original data frames, we don't want to keep a duplicate column. Your final `dfCompiled` should not contain duplicate `sample` columns.
+
+Print out `dfCompiled`.
+```{r step 2}
+dfCompiled <- merge(dfFile1, dfFile2, by = "sample")
+
+dfCompiled
+```
+## Step 3
+Perfect! We've got a compiled data frame. Let's do some preliminary analysis.
+
+1. Create a named vector where each name corresponds to the column name and the value corresponds to the mean of the column. Because `sample` column contains type character, this column should not be included in this vector.
+2. Create another named vector, similar to done in the previous step, where the value corresponds to the standard deviation of the column. Use your vector from the previous step to assist with this.
+3. Try out the `summary()` function on a random column and print out the result. Describe what you see in Markdown.
+4. Try out the `summary()` function on `dfCompiled` and print out the result. Describe what you see in Markdown.
+
+Put your description for 3 and 4 below:
+```{r step 3}
+
+dataMean <- c(mean(dfCompiled$CD3), mean(dfCompiled$CD4), mean(dfCompiled$CD8), mean(dfCompiled$CD127), mean(dfCompiled$CD45), mean(dfCompiled$CD16))
+names(dataMean) <- colnames(dfCompiled[,2:7])
+
+
+dataSD <- c(sd(dfCompiled$CD3), sd(dfCompiled$CD4), sd(dfCompiled$CD8), sd(dfCompiled$CD127), sd(dfCompiled$CD45), sd(dfCompiled$CD16))
+names(dataSD) <- colnames(dfCompiled[,2:7])
+
+summary(dfCompiled$CD3)
+summary(dfCompiled)
+```
+
+## Step 4
+Let's practice some indexing.
+
+1. Print out the even numbered rows in the data frame.
+2. Print out the odd numbered columns in the data frame.
+3. Print out the even numbered rows AND odd numbered columns in the data frame.
+4. Print out the subset (i.e. all columns and only the rows matching the condition) of the data frame where the `CD3` column is >= 25.
+5. Print out the subset (i.e. all columns and only the rows matching the condition) of the data frame where the `CD4` column is < 15 and `CD8` column is > 30.
+
+6. Add a new column to `dfCompiled` called `goingWild` with a vector of numbers of your choice. If you don't want to come up with numbers, you can look up the `runif` function that can generate a vector of random numbers.
+
+```{r step 4}
+
+rows <- nrow(dfCompiled) 
+even_rows <- seq_len(rows) %% 2 
+dfCompiled[even_rows == 0, ] 
+
+
+columns <- ncol(dfCompiled) 
+even_cols <- seq_len(columns) %% 2 
+dfCompiled[, even_cols !=0]
+
+dfCompiled[even_rows == 0, even_cols !=0]
+
+subset(dfCompiled, CD3 >= 3)
+
+subset(dfCompiled, CD4 < 15 & CD8 > 30)
+
+dfCompiled$goingWild <- c(1:20)
+
+```
+## Step 5
+Let's practice making some functions now.
+
+1. Write a function called `filterDataFrame` that takes three arguments: `df`, `colname`, and `value`. This function with take a data frame (`df`) and filter out the rows where the `colname` is not equal to `value`. You should check and stop the function early if `colname` is not actually a column name in `df`.
+
+You should try out this function on different column names and values to ensure that it works. 
+
+```{r step 5}
+filterDataFrame <- function(df, colname, value){
+  
+  colNames <- colnames(df)
+  
+  if(colname %in% colNames) {
+    subset_df <- df[df[[colname]] == value, ]
+    return(subset_df)}
+  
+  else {
+    print("'colname' not in data frame")}
+}
+
+filterDataFrame(dfCompiled, "goingWild", 3)
+```
+## Step 6
+Let's practice our for loops, sapply, and lapply.
+1. Using a for loop, create a new column to `dfCompiled` that adds together `CD4` and `CD8` for every even numbered row.
+2. Using sapply, create a new column to `dfCompiled` that adds together `CD4` and `CD8` for every even numbered row.
+
+```{r step 6}
+dfCompiled$TotalT <- NA
+for(i in seq(0, nrow(dfCompiled), by = 2)){
+  dfCompiled[i,"TotalT"] <- sum(dfCompiled[i,"CD4"],dfCompiled[i,"CD8"]) 
+}
+dfCompiled
+
+dfCompiled$TotalT <- NA
+
+dfCompiled$TotalT <- sapply(1:nrow(dfCompiled), function(X) {
+  if (X %% 2 == 0) {
+    return(sum(dfCompiled[X, "CD4"],dfCompiled[X, "CD8"]))
+  } else {
+    return(NA) 
+  }
+})
+dfCompiled
+
+#slay
+```
